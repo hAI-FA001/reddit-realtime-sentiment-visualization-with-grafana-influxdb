@@ -1,10 +1,16 @@
-FROM python:3.12-slim
+FROM python:3.12.1-slim
+
+
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_CACHE_DIR='/var/cache/pypoetry' \
+    POETRY_HOME='/usr/local'
 
 WORKDIR /app
 
-COPY poetry.lock pyproject.toml ./
-COPY src ./src
+RUN pip3 install poetry
 
-RUN pip install poetry && poetry install --no-root
+COPY pyproject.toml ./
+COPY src ./src
 
 CMD [ "poetry", "run", "python", "-m", "src.data_ingestion.reddit_stream" ]
