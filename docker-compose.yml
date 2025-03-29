@@ -12,6 +12,8 @@ services:
       - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG}
       - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET}
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN}
+      - DOCKER_INFLUXDB_INIT_RETENTION=1w
+
       
   grafana:
     image: grafana/grafana:latest
@@ -22,6 +24,8 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
     depends_on:
       - influxdb
+    volumes:
+      - grafana_data:/var/lib/grafana
   
   reddit_stream:
     build:
@@ -31,12 +35,14 @@ services:
       - REDDIT_CLIENT_ID=${REDDIT_CLIENT_ID}
       - REDDIT_CLIENT_SECRET=${REDDIT_CLIENT_SECRET}
       - REDDIT_USER_AGENT=${REDDIT_USER_AGENT}
-      - INFLUXDB_URL=${INFLUXDB_HOST}
+      - INFLUXDB_HOST=${INFLUXDB_HOST_REDDIT}
       - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
       - INFLUXDB_ORG=${INFLUXDB_ORG}
       - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+      - PYTHONUNBUFFERED=1
     depends_on:
       - influxdb
 
 volumes:
   influxdb_data:
+  grafana_data:
