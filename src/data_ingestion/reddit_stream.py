@@ -1,6 +1,7 @@
 import praw
 import os
 from dotenv import load_dotenv
+from src.sentiment_analysis.sentiment_model import analyze_sentiment
 
 load_dotenv()
 
@@ -19,8 +20,13 @@ def start(subreddit):
     subreddit = reddit.subreddit(subreddit)
 
     for submission in subreddit.stream.submissions():
-        print(f"Title: {submission.title}")
-        print(f"Text: {submission.selftext}")
+        title = submission.title
+        text = submission.selftext
+
+        print(f"Title: {title}")
+        print(f"Sentiment: {analyze_sentiment(title)}")
+        print(f"Text: {text}")
+        print(f"Sentiment: {analyze_sentiment(text)}")
         print("-" * 50)
 
 
