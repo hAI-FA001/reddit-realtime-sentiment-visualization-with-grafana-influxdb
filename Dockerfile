@@ -13,4 +13,6 @@ RUN pip3 install poetry
 COPY pyproject.toml ./
 COPY src ./src
 
+RUN poetry install --no-root
+
 CMD [ "poetry", "run", "python", "-m", "src.data_ingestion.reddit_stream" ]
