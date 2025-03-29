@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from src.sentiment_analysis.sentiment_model import analyze_sentiment
 from src.data_storage.influxdb import write_to_db
 
-load_dotenv()
+load_dotenv(override=True)
 
 REDDIT_CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
 REDDIT_CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")

@@ -3,7 +3,7 @@ import os
 import datetime
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 INFLUXDB_HOST = os.getenv("INFLUXDB_HOST")
 INFLUXDB_TOKEN = os.getenv("INFLUXDB_TOKEN")
