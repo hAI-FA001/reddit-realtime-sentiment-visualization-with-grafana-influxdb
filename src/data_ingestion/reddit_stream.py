@@ -2,6 +2,7 @@ import praw
 import os
 from dotenv import load_dotenv
 from src.sentiment_analysis.sentiment_model import analyze_sentiment
+from src.data_storage.influxdb import write_to_db
 
 load_dotenv()
 
@@ -23,10 +24,15 @@ def start(subreddit):
         title = submission.title
         text = submission.selftext
 
+        title_sentiment = analyze_sentiment(title)
+        text_sentiment = analyze_sentiment(text)
+
+        write_to_db(title, title_sentiment, text, text_sentiment)
+
         print(f"Title: {title}")
-        print(f"Sentiment: {analyze_sentiment(title)}")
+        print(f"Sentiment: {title_sentiment}")
         print(f"Text: {text}")
-        print(f"Sentiment: {analyze_sentiment(text)}")
+        print(f"Sentiment: {text_sentiment}")
         print("-" * 50)
 
 
