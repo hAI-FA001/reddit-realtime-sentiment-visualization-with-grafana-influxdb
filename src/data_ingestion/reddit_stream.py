@@ -39,4 +39,5 @@ def start(subreddit):
 
 
 if __name__ == "__main__":
+    print(f"Streaming {SUBREDDIT}")
     start(SUBREDDIT)
