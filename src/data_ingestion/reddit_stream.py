@@ -29,7 +29,13 @@ def start(subreddit):
         title_sentiment = analyze_sentiment(title)
         text_sentiment = analyze_sentiment(text)
 
-        write_to_db(title, title_sentiment, text, text_sentiment)
+        write_to_db(
+            title,
+            title_sentiment,
+            text,
+            text_sentiment,
+            submission.created_utc,
+        )
 
         print(f"Title: {title}")
         print(f"Sentiment: {title_sentiment}")

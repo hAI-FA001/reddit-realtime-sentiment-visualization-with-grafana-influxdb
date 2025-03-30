@@ -11,7 +11,7 @@ INFLUXDB_ORG = os.getenv("INFLUXDB_ORG")
 INFLUXDB_BUCKET = os.getenv("INFLUXDB_BUCKET")
 
 
-def write_to_db(title, title_sentiment, text, text_sentiment):
+def write_to_db(title, title_sentiment, text, text_sentiment, created_utc):
     client = InfluxDBClient3(
         host=INFLUXDB_HOST,
         token=INFLUXDB_TOKEN,
@@ -24,7 +24,8 @@ def write_to_db(title, title_sentiment, text, text_sentiment):
         .field("title_sentiment", title_sentiment)
         .field("text", text)
         .field("text_sentiment", text_sentiment)
-        .time(datetime.datetime.now(datetime.UTC), WritePrecision.NS)
+        # .time(datetime.datetime.now(datetime.UTC), WritePrecision.NS)
+        .time(datetime.datetime.fromtimestamp(created_utc), WritePrecision.NS)
     )
 
     client.write(database=INFLUXDB_BUCKET, record=point)
