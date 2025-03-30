@@ -10,6 +10,8 @@ REDDIT_CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
 REDDIT_CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
 REDDIT_USER_AGENT = os.getenv("REDDIT_USER_AGENT")
 
+SUBREDDIT = os.getenv("SUBREDDIT")
+
 
 def start(subreddit):
     reddit = praw.Reddit(
@@ -37,5 +39,4 @@ def start(subreddit):
 
 
 if __name__ == "__main__":
-    subreddit = "DigitalSreeni"
-    start(subreddit)
+    start(SUBREDDIT)
